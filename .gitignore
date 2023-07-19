@@ -1,0 +1,31 @@
+# Logs #
+/logs
+*.log
+*.log*
+
+# Node files #
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+.npmrc
+
+
+
+
+
+# Dist #
+dist/
+
+
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Generated source-code #
+src/**/*.js.map
+coverage/

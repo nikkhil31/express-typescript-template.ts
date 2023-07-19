@@ -1,0 +1,26 @@
+import { Request, Response, NextFunction } from 'express'
+
+import httpStatus from 'http-status'
+import AppError from '@core/utils/appError'
+import errorHandler from '@core/utils/errorHandler'
+import ApiResponse from '@core/utils/apiResponse'
+
+
+const apiResponse = new ApiResponse()
+// catch all unhandled errors
+const errorHandling = (
+    error: Error,
+    req: Request,
+    res: Response,
+    // eslint-disable-next-line
+    next: NextFunction,
+) => {
+    errorHandler.handleError(error)
+    const isTrusted = errorHandler.isTrustedError(error)
+    const httpStatusCode = isTrusted ? (error as AppError).httpCode : httpStatus.INTERNAL_SERVER_ERROR
+    const responseError = isTrusted ? error.message : httpStatus[httpStatus.INTERNAL_SERVER_ERROR]
+    
+    apiResponse.error(res,httpStatusCode,responseError)
+}
+
+export default errorHandling
